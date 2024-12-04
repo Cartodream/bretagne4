@@ -7,9 +7,9 @@
             onSelectionComplete: null, // the callback function for selected tags
             position: 'topright',
             data: null, // the data to be used for tags popup, it can be array or function
-            clearText: 'clear', // the text of the clear button
+            toolbar:'test',
             filterOnEveryClick: false, // if set as true the plugin do filtering operation on every click event on the checkboxes
-            openPopupOnHover: false, // if set as true the popup that contains tags will be open at mouse hover time
+            openPopupOnHover: true, // if set as true the popup that contains tags will be open at mouse hover time
 
             ajaxData: null // it can be used for remote data TODO: implement it!
         },
@@ -446,17 +446,18 @@
 
             this._filterInfo = L.DomUtil.create('span', 'filter-info-box', this._easyButton._container);
             this._showFilterInfo(0);
-
             this._clearEl = L.DomUtil.create('ul', 'header', this._container);
-            this._clearEl.innerHTML = "<li class='ripple'><a>" + this.options.clearText + "</a></li>";
-
-            L.DomEvent.addListener(this._clearEl.getElementsByTagName('a')[0], 'click', this._clearSelections.bind(this));
-            L.DomEvent.addListener(this._clearEl.getElementsByTagName('li')[0], 'click', this._clearSelections.bind(this));
-
-            this._tagEl = L.DomUtil.create('ul', '', this._container);
+            this._clearEl.innerHTML = "<li class='ripple'><a>" + this.options.clearText + "</a></li>";            
+         
+            this._tagEl = L.DomUtil.create('ul', 'header', this._container);
             this._map.on('dragstart click', this.hide, this);
             L.DomEvent.addListener(this._container, 'dblclick', L.DomEvent.stop);
             L.DomEvent.addListener(this._container, 'click', L.DomEvent.stop);
+            this._clearEl = L.DomUtil.create('ul', '', this._container);
+            this._clearEl.innerHTML = "<li class='ripple'><a>Clear</a></li>";
+
+            L.DomEvent.addListener(this._clearEl.getElementsByTagName('a')[0], 'click', this._clearSelections.bind(this));
+            L.DomEvent.addListener(this._clearEl.getElementsByTagName('li')[0], 'click', this._clearSelections.bind(this));
             return this;
         },
 

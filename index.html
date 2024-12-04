@@ -139,8 +139,15 @@
 				position: 'bottomright',
 				imperial: false
 			}));	
-			L.control.tagFilterButton({
+			var statusFilterButton =L.control.tagFilterButton({
         data: ['Oui', 'Non',],
+		clearText: ' Porte au moins un dispositif dédié par l\'ESS ', // the text of the clear button
+        icon: '<img src="image/filter.png">',
+        filterOnEveryClick: true
+    }).addTo(map)
+	var statusFilterButton2 =L.control.tagFilterButton({
+        data: ['oui', 'non',],
+		clearText: ' Porte au moins un dispositif dédié aux publics fragiles ', // the text of the clear button
         icon: '<img src="image/filter.png">',
         filterOnEveryClick: true
     }).addTo(map)
@@ -199,7 +206,7 @@
 			var optionsAffichageDonnees = {
 				pointToLayer: function (feature, latlng) { // fonction qui permet de transformer l'entité récupérée dans le geoJson en marker sur la carte
 					if (((feature.properties.sous_cat) != null) && ((feature.properties.sous_cat) != ""))
-					return new L.Marker(latlng, {tags:[feature.properties.disp_ESS],icon: definePicto(feature.properties.sous_cat)});
+					return new L.Marker(latlng, {tags:[feature.properties.disp_ESS,feature.properties.disp_fr],icon: definePicto(feature.properties.sous_cat)});
 				}
 			}
 			
